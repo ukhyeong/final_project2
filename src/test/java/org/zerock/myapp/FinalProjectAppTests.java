@@ -39,7 +39,10 @@ import lombok.extern.slf4j.Slf4j;
 @TestInstance(Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-@SpringBootTest
+@SpringBootTest(
+		properties = "spring.jpa.hibernate.ddl-auto=create"
+//		properties = "spring.jpa.hibernate.ddl-auto=update"
+		)
 class FinalProjectAppTests {
 	@Autowired
 	private UserRepository userRepository;
