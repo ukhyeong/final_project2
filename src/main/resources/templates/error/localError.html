@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>localError</title>
+</head>
+
+<body>
+	<h3>/templates/error/localError.html</h3>
+	<hr>
+
+	<div>
+		<h3>Exception Information: </h3>
+		
+		<ul style="font-size: 16px; font-weight: bold;">
+			<li>[[ ${_EXCEPTION_} ]]</li>
+			<li><a th:href="@{/common/main}" th:text="${ 'Back To Main' }"></a></li>
+		</ul>
+		<hr>
+		
+		<ol th:if="${_STACKTRACE_}" style="font-size: 16px; font-weight: bold; color: red;">
+			<li th:each="i : ${#numbers.sequence(0, _STACKTRACE_.length - 1)}" >[[ ${_STACKTRACE_[i]} ]]</li>
+		</ol>
+	</div>
+</body>
+</html>

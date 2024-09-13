@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>customLogin</title>
+</head>
+
+<body>
+    <h3>/templates/common/customLogin.html</h3>
+    <hr>
+
+    <form th:action="@{/login}" th:method="POST">
+        ID: <input th:type="text" th:name="username" required> <br>
+        PW: <input th:type="password" th:name="password" required>
+        <p></p>
+        
+        <input th:type="submit" th:value="로그인">
+    </form>
+</body>
+
+</html>
