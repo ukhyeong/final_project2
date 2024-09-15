@@ -52,5 +52,5 @@ public class StudySpringSecurityApp extends ServletInitializer {
 		log.trace("main({}) invoked.", Arrays.toString(args));
 	} // main
 
-	// git test
+	// git test2
 } // end class

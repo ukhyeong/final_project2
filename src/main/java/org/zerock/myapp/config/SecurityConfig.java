@@ -69,6 +69,8 @@ public class SecurityConfig {	// @Since 2.5.x & 3.x 에서 만드는 보안설�
 					// permitAll - errorPage
 					.requestMatchers("/common/403").permitAll()
 					.requestMatchers("/exception/SQLException").permitAll()
+					.requestMatchers("/exception/BoardException").permitAll()
+					.requestMatchers("/exception/IllegalArgumentException").permitAll()
 					
 					// authenticated
 					.requestMatchers("/common/main").authenticated()
