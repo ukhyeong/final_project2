@@ -167,7 +167,7 @@ public class SecurityConfig {	// @Since 2.5.x & 3.x 에서 만드는 보안설�
 		// 서비스에서 만든 사용자 테이블을 이용한 사용자 인증관리 설정
 		// -------------------------
 		
-		final String userQuery = "SELECT user_id as username, '{noop}'||password, true FROM uzer WHERE user_id = ?";
+		final String userQuery = "SELECT user_id as username, password, true FROM uzer WHERE user_id = ?";
 		final String authorityQuery = "SELECT user_id as username, upper(role) as authority FROM uzer WHERE user_id =?";
 		
 		auth.jdbcAuthentication()

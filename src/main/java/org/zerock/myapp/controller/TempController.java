@@ -11,16 +11,16 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @NoArgsConstructor
 
-@Controller("helloController")
-public class HelloController {
+@Controller("tempController")
+public class TempController {
 	
 	
-	@GetMapping("/hello")
+	@GetMapping("/temp")
 	String hello(Model model) {
-		log.trace("hello({}) invoked.", model);
+		log.trace("temp({}) invoked.", model);
 		
 		model.addAttribute("greeting", "Hello, Thymeleaf.");
-		return "hello";
+		return "temp";
 	} // hello
 	
 } // end class

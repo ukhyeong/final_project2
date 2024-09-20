@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 
 @Configuration
+// 비밀번호 암호화를 위한 설정 클래스
 public class PasswordConfig {
 	
 	
