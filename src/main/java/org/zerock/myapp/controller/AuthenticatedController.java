@@ -11,26 +11,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @NoArgsConstructor
 
-@RequestMapping("/common/")
+// 인증(Authentication)과 관련된 요청을 처리하는 컨트롤러
+@RequestMapping("/auth/")		// Base URI
 @Controller
-public class LoginController {
+public class AuthenticatedController {
 	
+	@GetMapping("/main")
+	void main() {	
+		log.trace("main() invoked.");
+	} // main
 	
-	@GetMapping("/customLogin")
-	void customLogin() {
-		log.trace("customLogin() invoked.");		
-	} // customLogin
-	
-	
-	@GetMapping("/memberJoin")
-	void memberJoin() {
-		log.trace("memberJoin() invoked.");		
-	} // memberJoin
-	
+	@GetMapping("/myPage")
+	void myPage() {	
+		log.trace("myPage() invoked.");		
+	} // myPage
 	
 	@GetMapping("/403")
 	void accessDenied() {
 		log.trace("accessDenied() invoked.");		
 	} // accessDenied
-
+	
 } // end class

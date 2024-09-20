@@ -1,6 +1,5 @@
 package org.zerock.myapp;
 
-import java.net.PasswordAuthentication;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -14,10 +13,8 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
-import org.zerock.myapp.config.PasswordConfig;
 import org.zerock.myapp.entity.Course;
 import org.zerock.myapp.entity.Grade;
 import org.zerock.myapp.entity.Lecture;

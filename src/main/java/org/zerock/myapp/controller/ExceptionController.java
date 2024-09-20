@@ -6,8 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.zerock.myapp.exception.BoardException;
-import org.zerock.myapp.exception.BoardNotFoundException;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.zerock.myapp.util.SharedAttributes;
 
 import lombok.NoArgsConstructor;
@@ -17,23 +16,13 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @NoArgsConstructor
 
+// 사실상 지역 예외 처리 테스트를 위한 컨트롤러인듯
+@RequestMapping("/exception/")
 @Controller("exceptionController")
 public class ExceptionController {
 	
-	
-	@GetMapping("/exception/BoardException")
-	void raiseBoardException() throws BoardException {
-		log.trace("raiseBoardException() invoked.");
-		throw new BoardNotFoundException("No Board Found.");
-	} // raiseBoardException
-	
-	@GetMapping("/exception/IllegalArgumentException")
-	void raiseIllegalArgumentException() throws  IllegalArgumentException {
-		log.trace("raiseIllegalArgumentException() invoked.");
-		throw new IllegalArgumentException("Illegal Arguments");
-	} // raiseIllegalArgumentException
-	
-	@GetMapping("/exception/SQLException")
+	// 아래의 지역 예외처리기 발동을 위한 매핑 URI
+	@GetMapping("/SQLException")
 	void raiseSQLException() throws SQLException {
 		log.trace("raiseSQLException() invoked.");
 		throw new SQLException("SQL syntax error");
@@ -49,7 +38,7 @@ public class ExceptionController {
 		model.addAttribute(SharedAttributes.EXCEPTION, e);
 		model.addAttribute(SharedAttributes.STACKTRACE, e.getStackTrace());
 		
-		return "/error/localError.html";
+		return "/exception/localError.html";
 	} // handleLocalException
 
 } // end class
