@@ -13,6 +13,7 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.zerock.myapp.entity.Course;
 import org.zerock.myapp.entity.Grade;
@@ -39,7 +40,11 @@ import lombok.extern.slf4j.Slf4j;
 @TestInstance(Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-@SpringBootTest
+// create, update 테스트 하기 쉽도록 어노테이션에 지정
+@SpringBootTest(
+//		properties = "spring.jpa.hibernate.ddl-auto=create"
+		properties = "spring.jpa.hibernate.ddl-auto=update"
+		)
 class FinalProjectAppTests {
 	@Autowired
 	private UserRepository userRepository;
@@ -53,6 +58,8 @@ class FinalProjectAppTests {
 	private CourseRepository courseRepository;
 	@Autowired
 	private GradeRepository gradeRepository;
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
 	
 	@BeforeAll
 	void beforeAll() {
@@ -64,13 +71,15 @@ class FinalProjectAppTests {
 		Objects.requireNonNull(this.lectureRepository);
 		Objects.requireNonNull(this.courseRepository);
 		Objects.requireNonNull(this.gradeRepository);
+		Objects.requireNonNull(this.bcryptEncoder);
 		
 		log.info("\t+ this.userRepository : {}", this.userRepository);
 		log.info("\t+ this.professorRepository : {}", this.professorRepository);
 		log.info("\t+ this.studentRepository : {}", this.studentRepository);
 		log.info("\t+ this.lectureRepository : {}", this.lectureRepository);
 		log.info("\t+ this.courseRepository : {}", this.courseRepository);
-		log.info("\t+ this.courseRepository : {}", this.gradeRepository);
+		log.info("\t+ this.gradeRepository : {}", this.gradeRepository);
+		log.info("\t+ this.passwordConfig : {}", this.bcryptEncoder);
 	} // beforeAll
 	
 	
@@ -84,7 +93,10 @@ class FinalProjectAppTests {
 		IntStream.rangeClosed(1, 2).forEach(n -> {
 			User user = new User();
 			user.setId("PROFESSOR_ID_" + n);
-			user.setPassword("PASSWORD_" + n);
+			
+			String password = "PASSWORD_" + n;
+			
+			user.setPassword(bcryptEncoder.encode(password));
 			user.setRole(Role.PROFESSOR);
 			
 			this.userRepository.save(user);
@@ -102,7 +114,10 @@ class FinalProjectAppTests {
 		IntStream.rangeClosed(1, 4).forEach(n -> {
 			User user = new User();
 			user.setId("STUDENT_ID_" + n);
-			user.setPassword("PASSWORD_" + n);
+			
+			String password = "PASSWORD_" + n;
+			
+			user.setPassword(bcryptEncoder.encode(password));
 			user.setRole(Role.STUDENT);
 			
 			this.userRepository.save(user);
