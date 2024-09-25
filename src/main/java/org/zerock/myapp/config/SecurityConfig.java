@@ -62,20 +62,17 @@ public class SecurityConfig {	// @Since 2.5.x & 3.x 에서 만드는 보안설�
 			customizer -> 
 				customizer
 					// permitAll
-					.requestMatchers("/permitAll/signIn").permitAll()
-					.requestMatchers("/permitAll/signUp").permitAll()
+					.requestMatchers("/all/signIn").permitAll()
+					.requestMatchers("/all/signUp").permitAll()
+					.requestMatchers("/all/403").permitAll()
 					.requestMatchers("/login").permitAll()
 					
 					// permitAll - test
 					.requestMatchers("/temp").permitAll()
 					
-					// permitAll - exception
-					.requestMatchers("/exception/SQLException").permitAll()
-					
 					// authenticated
 					.requestMatchers("/auth/main").authenticated()
 					.requestMatchers("/auth/myPage").authenticated()
-					.requestMatchers("/auth/403").authenticated()
 					.requestMatchers("/logout").authenticated()	  
 					
 					// ROLE == STUDENT
@@ -84,8 +81,8 @@ public class SecurityConfig {	// @Since 2.5.x & 3.x 에서 만드는 보안설�
 					.requestMatchers("/student/checkGrade").hasAnyRole("STUDENT")
 					
 					// ROLE == PROFESSOR
-					.requestMatchers("/professor/courseOpen").hasAuthority("ROLE_PROFESSOR")
-					.requestMatchers("/professor/checkOpenCourse").hasAuthority("ROLE_PROFESSOR")
+					.requestMatchers("/professor/lectureOpen").hasAuthority("ROLE_PROFESSOR")
+					.requestMatchers("/professor/checkOpenLecture").hasAuthority("ROLE_PROFESSOR")
 					.requestMatchers("/professor/gradeEvaluation").hasAnyRole("PROFESSOR")
 					.requestMatchers("/professor/checkEvaluateGrade").hasAnyRole("PROFESSOR")
 		);	// .authorizeHttpRequests
@@ -103,14 +100,14 @@ public class SecurityConfig {	// @Since 2.5.x & 3.x 에서 만드는 보안설�
 			customizer -> 
 				customizer
 					// (1) 인증되지 않은 상태로 임의의 URI 접근시 "/permitAll/customLogin" 로 리다이렉트
-					.loginPage("/permitAll/signIn")
+					.loginPage("/all/signIn")
 					// (2) 로그인 폼이 제출되면 "/login URL" 로 인증요청이 전송
 					// +++ 로그인 처리를 할 URL 을 "/login" 으로 지정이 더 알맞은 설명 이지 않을까
 					.loginProcessingUrl("/login")
 					// (3) 인증후에 "/auth/main" 로 리다이렉트 -> false, 무시하고 최초 요청한 URL 로 리다이렉트 -> true
 					.defaultSuccessUrl("/auth/main", true)
 					// (4) 인증실패시, 다시 커스텀로그인으로 요청
-					.failureUrl("/permitAll/signIn")
+					.failureUrl("/all/signIn")
 		); // .formLogin
 
 		
@@ -143,7 +140,7 @@ public class SecurityConfig {	// @Since 2.5.x & 3.x 에서 만드는 보안설�
 					//     클라이언트가 이 URL로 로그아웃 요청을 보내면, Spring Security 가 로그아웃을 처리합니다.
 					.logoutUrl("/logout")
 					// (5) 로그아웃처리가 성공하면, 다시 커스텀 로그인 화면으로 이동
-					.logoutSuccessUrl("/permitAll/signIn")
+					.logoutSuccessUrl("/all/signIn")
 		); // .logout
 
 		
@@ -153,7 +150,7 @@ public class SecurityConfig {	// @Since 2.5.x & 3.x 에서 만드는 보안설�
 		
 		// 403 오류발생시, 보여줄 화면을 만들어낼 요청 URI 설정
 		// ***** 다만 권한이 없다고 해서 꼭 페이지 이동을 해야할까.. 그냥 팝업창 정도로 해결할수는 없는가 *****
-		http.exceptionHandling(cutomizer -> cutomizer.accessDeniedPage("/auth/403"));
+		http.exceptionHandling(cutomizer -> cutomizer.accessDeniedPage("/all/403"));
 		
 		return http.build();
 	} // securityFilterChain

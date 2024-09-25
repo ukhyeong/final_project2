@@ -9,14 +9,11 @@ import lombok.NoArgsConstructor;
 
 @Component("sharedAttributes")
 public final class SharedAttributes {
-	public static final String CREDENTIAL = "_MEMBER_";
-	public static final String LOGIN_ID = "_LOGIN_ID_";
-	public static final String PAGE = "_PAGE_";
-	public static final String BOARD = "_BOARD_";
-	public static final String CURRENT_PAGE = "currPage";
-	public static final String EXCEPTION = "_EXCEPTION_";
-	public static final String STACKTRACE = "_STACKTRACE_";
+	public static final String CURRENT_PAGE = "_CURRENT_PAGE_";
 	
+	public static final String FOUND_PAGE = "_FOUND_PAGE_";
+	public static final String PAGINATION = "_PAGINATION_";
 	
+//	public static final String LECTURE_PK_ATTRIBUTE_NAME = "id";
 } // end class
 
