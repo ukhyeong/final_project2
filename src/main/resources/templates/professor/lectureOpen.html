@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>lectureOpen.html</title>
+</head>
+
+<body>
+	<h3>/templates/professor/lectureOpen.html</h3>
+	<hr>
+	<table th:border="1">
+			<tr>
+				<th>강의명</th>
+				<th>강의일</th>
+				<th>강의시간</th>
+				<th>강의교수</th>
+			</tr>
+			
+			<tr th:each="lecture, stat : ${_FOUND_PAGE_}">
+				<td th:text="${lecture.lectureName}"></td>
+		        <td th:text="${lecture.lectureDay}"></td>
+		        <td th:text="${lecture.lectureTime}"></td>
+		        <td th:text="${lecture.professor.name}"></td>
+			</tr>
+		</table>
+</body>
+
+</html>

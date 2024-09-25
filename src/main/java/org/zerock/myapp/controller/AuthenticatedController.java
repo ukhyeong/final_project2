@@ -26,9 +26,4 @@ public class AuthenticatedController {
 		log.trace("myPage() invoked.");		
 	} // myPage
 	
-	@GetMapping("/403")
-	void accessDenied() {
-		log.trace("accessDenied() invoked.");		
-	} // accessDenied
-	
 } // end class

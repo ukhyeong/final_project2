@@ -16,11 +16,10 @@ public class TempController {
 	
 	
 	@GetMapping("/temp")
-	String hello(Model model) {
+	void hello(Model model) {
 		log.trace("temp({}) invoked.", model);
 		
 		model.addAttribute("greeting", "Hello, Thymeleaf.");
-		return "temp";
 	} // hello
 	
 } // end class
