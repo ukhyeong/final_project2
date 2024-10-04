@@ -5,10 +5,10 @@ import java.io.Serializable;
 import org.zerock.myapp.entity.LectureDay;
 import org.zerock.myapp.entity.Professor;
 
-import lombok.Value;
+import lombok.Data;
 
 
-@Value
+@Data
 public class LectureDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
