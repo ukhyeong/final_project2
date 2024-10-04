@@ -109,7 +109,7 @@ public class BoardServiceImpl extends CommonBeanCallbacks implements BoardServic
 		// Step2.
 		optional.ifPresent(b -> {	// If founded,
 			// Step3.			
-			b.setTitle(dto.getTitle());
+			b.setTitle(dto.getTitle());	
 			b.setWriter(dto.getWriter());
 			b.setContent(dto.getContent());
 			b.setCnt(dto.getCnt());

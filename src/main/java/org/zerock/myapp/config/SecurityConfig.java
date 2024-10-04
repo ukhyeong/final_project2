@@ -73,9 +73,7 @@ public class SecurityConfig {	// @Since 2.5.x & 3.x 에서 만드는 보안설�
 					// permitAll - Announcement
 					.requestMatchers("/auth/getBoard").permitAll()
 					.requestMatchers("/auth/getBoardList").permitAll()
-					.requestMatchers("/auth/registerBoardView").permitAll()
 					
-//					
 					// authenticated
 					.requestMatchers("/auth/main").authenticated()
 					.requestMatchers("/auth/myPage").authenticated()
@@ -96,6 +94,7 @@ public class SecurityConfig {	// @Since 2.5.x & 3.x 에서 만드는 보안설�
 					.requestMatchers("/auth/registerBoard").hasAuthority("ROLE_PROFESSOR")
 					.requestMatchers("/auth/deleteBoard").hasAuthority("ROLE_PROFESSOR")
 					.requestMatchers("/auth/updateBoard").hasAuthority("ROLE_PROFESSOR")
+					.requestMatchers("/auth/registerBoardView").hasAuthority("ROLE_PROFESSOR")
 		);	// .authorizeHttpRequests
 		
 

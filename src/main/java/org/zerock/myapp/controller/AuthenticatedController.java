@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/auth/")		// Base URI
 @Controller
 public class AuthenticatedController extends CommonBeanCallbacks{
-	
 	@Setter(onMethod_ = @Autowired)
 	private BoardService service;
 

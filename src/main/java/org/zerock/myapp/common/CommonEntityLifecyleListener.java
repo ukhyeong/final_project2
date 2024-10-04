@@ -1,4 +1,4 @@
-package org.zerock.myapp.common;
+	package org.zerock.myapp.common;
 
 import jakarta.persistence.PostLoad;
 import jakarta.persistence.PostPersist;
