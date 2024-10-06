@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>목록조회</title>
+
+	<style>
+		a {
+			text-decoration: none;
+		}
+		ul {
+			text-align: left;
+		}
+		ul > li {
+			display: inline-block;
+		}
+		a.current {
+			color: red;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<h3>/auth/getBoardList.html</h3>
+	<hr>
+	
+	<div>
+		<h3>목록조회 (
+				등록: [[ ${_IS_REGISTERED_} ]], 
+				수정: [[ ${_IS_MODIFIED_} ]], 
+				삭제: [[ ${_IS_REMOVED_} ]]
+			)
+		</h3>
+		
+		<a th:href="@{registerBoard(currPage=${_PAGINATION_.currPage})}">신규등록</a>
+		
+		<table th:border="1">
+			<tr>
+				<th>ID</th>
+				<th>TITLE</th>
+				<th>WRITER</th>
+				<th>CNT</th>
+				<th>CREATEDATE</th>
+				<th>UPDATEDATE</th>
+			</tr>
+			
+			<tr th:each="board, stat : ${_CURRENT_PAGE_}">
+				<td>[[ ${board.id} ]]</td>
+				
+				<td>
+					<a th:href="@{getBoard( currPage=${_PAGINATION_.currPage}, id=${board.id} )}">
+						[[ ${board.title} ]]
+					</a>
+				</td>
+				
+				<td>[[ ${board.writer} ]]</td>
+				<td>[[ ${board.cnt} ]]</td>
+
+				<td>[[ ${#dates.format(board.createDate, "yyyy/MM/dd")} ]]</td>
+				<td>[[ ${#dates.format(board.updateDate, "yyyy/MM/dd HH:mm:ss")} ]]</td>
+			</tr>
+		</table>
+		
+		<br>
+		
+		<!-- PAGINATION -->
+		<ul>
+			<li th:if="${!_PAGINATION_.first}">
+				<a th:href="@{ /auth/getBoardList( currPage=1 ) }">F</a>
+			</li>
+
+			<li th:if="${_PAGINATION_.prev}">
+				<a th:href="@{ /auth/getBoardList( currPage=${_PAGINATION_.currPage - 1} ) }">P</a>
+			</li>
+			
+			<li th:each="pageNumber : ${ #numbers.sequence(_PAGINATION_.startPage, _PAGINATION_.endPage) }">
+				<span th:if="${_PAGINATION_.currPage == pageNumber}">
+					<a th:class="current" th:href="@{/auth/getBoardList(currPage=${pageNumber})}">
+						[[ ${pageNumber} ]]
+					</a>
+				</span>
+				<span th:unless="${_PAGINATION_.currPage == pageNumber}">
+					<a th:href="@{ /auth/getBoardList( currPage=${pageNumber} ) }">
+						[[ ${pageNumber} ]]
+					</a>
+				</span>
+			</li>
+			
+			<li th:if="${_PAGINATION_.next}">
+				<a th:href="@{ /auth/getBoardList( currPage=${_PAGINATION_.currPage + 1} ) }">N</a>
+			</li>
+				
+			<li th:if="${!_PAGINATION_.last}">
+				<a th:href="@{ /auth/getBoardList( currPage=${_PAGINATION_.totalPages} ) }">L</a>
+			</li>
+		</ul>
+
+
+	</div>
+	
+</body>
+</html>
+
+

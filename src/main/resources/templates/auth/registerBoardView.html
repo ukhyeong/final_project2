@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>신규등록</title>
+</head>
+<body>
+	<h3>/auth/registerBoardView.html</h3>
+	<hr>
+	
+	<div>
+		<h3>신규등록</h3>
+	
+		<form th:action="@{ registerBoard }" th:method="POST">		
+			<input th:type="hidden" th:name="currPage" th:value="${param.currPage == ''? 1 : param.currPage}">
+			
+			<table th:border="1">
+				<tr>
+					<th>Title</th>
+					<td><input th:type="text" th:name="title" required></td>
+				</tr>
+				
+				<tr>
+					<th>Writer</th>
+					<td><input th:type="text" th:name="writer" required></td>
+				</tr>
+				
+				<tr>
+					<th>Content</th>
+					<td><textarea th:name="content" th:rows="15" th:cols="80"></textarea></td>
+				</tr>
+				
+				<tr>
+					<td th:colspan="2">
+						<input th:type="submit" th:value="등록하기">
+						<a th:href="@{ getBoardList( currPage=${param.currPage == ''? 1 : param.currPage} ) }">목록으로가기</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+</body>
+</html>
+
+
