@@ -24,7 +24,7 @@
 </head>
 
 <body>
-		<h3>000 교수님이 개설한 강의</h3>
+		<h3 th:text="${_FOUND_PAGE_.content[0].professor.name} + ' 교수님이 개설한 강의'" ></h3>
 		<hr>
 		
 	<div>
