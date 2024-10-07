@@ -2,10 +2,9 @@ package org.zerock.myapp.entity;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
-import org.hibernate.annotations.CurrentTimestamp;
-import org.hibernate.generator.EventType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.zerock.myapp.common.CommonEntityLifecyleListener;
 
@@ -13,13 +12,23 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
+
+@EqualsAndHashCode(callSuper=false)
 @Data
 
 @EntityListeners({ 
@@ -34,52 +43,55 @@ import lombok.Data;
 
 @Entity(name = "Board")
 @Table(name = "board")
-public class Board implements Serializable {
+public class Board extends JpaAudit implements Serializable {
 	@Serial private static final long serialVersionUID = 1L;
 	
 	// 1. PK 속성
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "board_id")
 	private Long id;
-	
+
 	
 	// 2. 일반속성
 	@Basic(optional = false)
 	private String title;
 	
-	@Basic(optional = false)
-	private String writer;
-	
 	@Basic
 	private String content;
-	
-//	@Basic(optional = false)
-//	private Integer cnt = 0;
 	
 	@Column(columnDefinition = "INTEGER default 0", insertable = false, nullable = false)
 	private Integer cnt;
 	
 	
-	// 3. 정보통신망법에 따른 속성
-//	@CreatedDate								// 1, With @EnableJpaAuditing & Low hibernate
-//	@CreationTimestamp 							// 2, @Until hibernate v5.x
-	@CurrentTimestamp(event = EventType.INSERT)	// 3, @Since hibernate v6.x (Best Practice)
-	@Basic(optional = false)
-	private Date createDate;
-	
-	// 주의사항: 만일, View(화면)에서, 날짜 데이터를 포맷팅하려고 한다면,
-	//           아래와 같이 JODA TIME Types은 사용하지 말것!!!
-//	@LastModifiedDate							// 1, With @EnableJpaAuditing & Low hibernate
-//	@UpdateTimestamp 							// 2, @Until hibernate v5.x
-	@CurrentTimestamp(event = EventType.UPDATE)	// 2, @Since hibernate v6.x (Best Practice)
-	@Basic
-	private Date updateDate;
-	
-	
 	// 4. 연관관계 매핑
+	// before
+//	@Basic(optional = false)
+//	private String writer;
+	// after, FK
+	@ManyToOne(targetEntity = Professor.class)
+    @JoinColumn(name = "professor_number", referencedColumnName = "professor_number", nullable = false)
+    private Professor professor;
 	
+	public void setProfessor(Professor professor) {
+		log.trace("setProfessor({}) invoked.", professor);
+		
+		Professor oldProfessor = this.getProfessor();
+		
+		if(oldProfessor != null) {
+			boolean isRemoved = oldProfessor.getBoards().remove(this);
+			log.info("\t+ isRemoved: {}", isRemoved);
+		} // if
+		
+		if(professor != null) {
+			this.professor = professor;
+			
+			this.professor.getBoards().add(this);
+		} // if
+	} // setProfessor
 	
-
+	@OneToMany(mappedBy = "board", targetEntity = Comment.class, fetch = FetchType.EAGER)
+	@ToString.Exclude
+    private List<Comment> comments = new Vector<>();
 } // end class
 
 

@@ -11,6 +11,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -72,5 +73,9 @@ public class Professor extends JpaAudit implements Serializable { // Main, 1, FK
  	@OneToMany(mappedBy = "professor", targetEntity = Lecture.class)
  	@ToString.Exclude
  	private List<Lecture> lectures = new Vector<>(); 
+ 	
+	@OneToMany(mappedBy = "professor", targetEntity = Board.class, fetch = FetchType.EAGER)
+	@ToString.Exclude
+    private List<Board> boards = new Vector<>();
 	
 } // end class

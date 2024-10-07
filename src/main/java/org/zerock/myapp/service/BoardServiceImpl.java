@@ -70,7 +70,7 @@ public class BoardServiceImpl extends CommonBeanCallbacks implements BoardServic
 		Board transientBoard = new Board();
 		
 		transientBoard.setTitle(dto.getTitle());
-		transientBoard.setWriter(dto.getWriter());
+//		transientBoard.setProfessor(Spring Security Context 의 사용자 아이디를 통해 교직원번호를 전달인자로 사용);
 		transientBoard.setContent(dto.getContent());
 		
 		Board savedBoard = this.dao.<Board>save(transientBoard);
@@ -110,7 +110,7 @@ public class BoardServiceImpl extends CommonBeanCallbacks implements BoardServic
 		optional.ifPresent(b -> {	// If founded,
 			// Step3.			
 			b.setTitle(dto.getTitle());	
-			b.setWriter(dto.getWriter());
+//			b.setWriter(dto.getWriter());
 			b.setContent(dto.getContent());
 			b.setCnt(dto.getCnt());
 			

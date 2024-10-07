@@ -17,12 +17,16 @@ import org.junit.jupiter.api.Timeout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.zerock.myapp.entity.Board;
+import org.zerock.myapp.entity.Professor;
 import org.zerock.myapp.persistence.BoardRepository;
+import org.zerock.myapp.persistence.ProfessorRepository;
 import org.zerock.myapp.util.RandomNumberGenerator;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardRepositoryTests {
 	@Autowired private MockMvc mockMvc;
 	@Autowired private BoardRepository dao;
+	@Autowired private ProfessorRepository prodao;
 	
 	
 	@PostConstruct
@@ -49,11 +54,15 @@ public class BoardRepositoryTests {
 		
 		Objects.requireNonNull(this.dao);
 		log.info("\t+ this.dao: {}", this.dao);
+		
+		Objects.requireNonNull(this.prodao);
+		log.info("\t+ this.prodao: {}", this.prodao);
 	} // postConstruct
 	
 	
 //	@Disabled
 	@Order(1)
+
 	@Test
 //	@RepeatedTest(1)
 	@DisplayName("1. testCreateBoard")
@@ -66,7 +75,14 @@ public class BoardRepositoryTests {
 			Board transientBoard = new Board();
 			
 			transientBoard.setTitle("TITLE");
-			transientBoard.setWriter("WRITER");
+			
+			Optional<Professor> optional = this.prodao.findById(1L);
+			
+			optional.ifPresent(p -> {
+				log.info("******************교수찾음******************");
+				transientBoard.setProfessor(p);
+			});
+			
 			transientBoard.setContent("CONTENT");
 			
 			Board savedBoard = this.dao.<Board>save(transientBoard);
