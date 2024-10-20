@@ -11,11 +11,15 @@
         const usernameInput = document.querySelector('input[name="username"]');
         const passwordInput = document.querySelector('input[name="password"]');
         const roleInput = document.querySelector('input[name="role"]');
+        const nameInput = document.querySelector('input[name="name"]');
+        const departmentInput = document.querySelector('input[name="department"]');
         
         // UTF-8 인코딩
         usernameInput.value = encodeURIComponent(usernameInput.value);
         passwordInput.value = encodeURIComponent(passwordInput.value);
         roleInput.value = encodeURIComponent(roleInput.value);
+        nameInput.value = encodeURIComponent(nameInput.value);
+        departmentInput.value = encodeURIComponent(departmentInput.value);
         
         return true; // 폼을 정상적으로 제출하기 위해 true를 반환
     }
@@ -37,7 +41,10 @@
         <label for="professor">PROFESSOR</label>
     
         <input type="radio" th:name="role" value="STUDENT">
-        <label for="student">STUDENT</label>
+        <label for="student">STUDENT</label> <br>
+        
+        NAME: <input th:type="text" th:name="name" required> <br>
+        DEPARTMENT: <input th:type="text" th:name="department" required>
         
         <p></p>
         

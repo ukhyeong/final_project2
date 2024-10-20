@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @NoArgsConstructor
 
-// 인증(Authentication)과 관련된 요청을 처리하는 컨트롤러
 @RequestMapping("/all/")
 @Controller
 public class PermitAllController {
@@ -34,11 +33,11 @@ public class PermitAllController {
 		log.trace("signUp() invoked.");		
 	} // signUp
 	
-	@PostMapping(value="/joinBoy", params = {"username", "password", "role"})
-	String joinBoy(String username, String password, String role, RedirectAttributes rttrs) {	
-		log.trace("joinBoy() invoked.");		
+	@PostMapping(value="/joinBoy", params = {"username", "password", "role", "name", "department"})
+	String joinBoy(String username, String password, String role, String name, String department, RedirectAttributes rttrs) {	
+		log.trace("joinBoy({}, {}, {}, {}, {}) invoked.", username, password, role, name, department);		
 		
-		boolean isRegistered = this.userService.registerUser(username, password, role);
+		boolean isRegistered = this.userService.registerUser(username, password, role, name, department);
 		
 		rttrs.addFlashAttribute(SharedAttributes.IS_REGISTERED, isRegistered);
 		rttrs.addAttribute("currPage", 1);	

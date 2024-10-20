@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.zerock.myapp.common.CommonBeanCallbacks;
+import org.zerock.myapp.entity.Professor;
 import org.zerock.myapp.entity.Role;
+import org.zerock.myapp.entity.Student;
 import org.zerock.myapp.entity.User;
 import org.zerock.myapp.persistence.ProfessorRepository;
 import org.zerock.myapp.persistence.StudentRepository;
@@ -23,7 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor	
 
 @Service
-public class UserServiceImpl extends CommonBeanCallbacks implements UserService {
+public class UserServiceImpl 
+	extends CommonBeanCallbacks 
+	implements UserService {
 	
 	@Autowired private StudentRepository studentRepo;
 	@Autowired private ProfessorRepository professorRepo;
@@ -47,8 +51,8 @@ public class UserServiceImpl extends CommonBeanCallbacks implements UserService 
 	
 	
 	@Override
-	public boolean registerUser(String username, String password, String role) {
-		log.trace("registerUser({}, {}, {}) invoked.", username, password, role);
+	public boolean registerUser(String username, String password, String role, String name, String department) {
+		log.trace("registerUser({}, {}, {}, {}, {}) invoked.", username, password, role, name, department);
 		
 		User newUser = new User();
 		
@@ -73,6 +77,33 @@ public class UserServiceImpl extends CommonBeanCallbacks implements UserService 
 		
 		User saveUser = this.userRepo.<User>save(newUser);
 		
+		try {
+			String decoedName = URLDecoder.decode(name, "UTF-8");
+			String decoedDepartment = URLDecoder.decode(department, "UTF-8");
+			
+			if(saveUser.getRole().equals(Role.PROFESSOR)) {
+				Professor newProfessor = new Professor();
+				newProfessor.setName(decoedName);
+				newProfessor.setDepartment(decoedDepartment);
+				newProfessor.setUser(saveUser);
+				
+				this.professorRepo.<Professor>save(newProfessor);
+				
+			} else if(saveUser.getRole().equals(Role.STUDENT)) {
+				Student newStudent = new Student();
+				newStudent.setName(decoedName);
+				newStudent.setDepartment(decoedDepartment);
+				newStudent.setUser(saveUser);
+				
+				this.studentRepo.<Student>save(newStudent);
+				
+			} // if else
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			
+		} // try catch
+
 		return (saveUser.getId() != null);
 	} // registerUser
 	

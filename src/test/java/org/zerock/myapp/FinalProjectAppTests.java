@@ -42,8 +42,8 @@ import lombok.extern.slf4j.Slf4j;
 
 // create, update 테스트 하기 쉽도록 어노테이션에 지정
 @SpringBootTest(
-//		properties = "spring.jpa.hibernate.ddl-auto=create"
-		properties = "spring.jpa.hibernate.ddl-auto=update"
+		properties = "spring.jpa.hibernate.ddl-auto=create"
+//		properties = "spring.jpa.hibernate.ddl-auto=update"
 		)
 class FinalProjectAppTests {
 	@Autowired
