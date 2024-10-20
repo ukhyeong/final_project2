@@ -13,5 +13,5 @@ public interface LectureRepository extends JpaRepository<Lecture, LectureId>{
 	// Query Methods 선언해서 사용
 	
 	// 1. 교수번호를 기준으로 검색
-	public abstract Page<Lecture> findByprofessorNumber(Long number, Pageable paging);
+	public abstract Page<Lecture> findByProfessorNumber(Long number, Pageable paging);
 } // end interface

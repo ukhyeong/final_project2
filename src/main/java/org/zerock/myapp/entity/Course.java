@@ -3,6 +3,7 @@ package org.zerock.myapp.entity;
 import java.io.Serial;
 import java.io.Serializable;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.zerock.myapp.common.CommonEntityLifecyleListener;
 
 import jakarta.persistence.Column;
@@ -21,7 +22,10 @@ import lombok.Data;
 
 @Data
 
-@EntityListeners(CommonEntityLifecyleListener.class)
+@EntityListeners({ 
+	CommonEntityLifecyleListener.class,
+	AuditingEntityListener.class 
+})
 @Entity
 @Table(name="course")
 public class Course implements Serializable {

@@ -3,19 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>signIn</title>
+    <title>로그인</title>
 </head>
 
 <body>
-    <h3>/templates/all/signIn.html</h3>
+    <h3>/all/signIn.html</h3>
     <hr>
-
+	<h3>로그인</h3>
+	
     <form th:action="@{/login}" th:method="POST">
         ID: <input th:type="text" th:name="username" required> <br>
         PW: <input th:type="password" th:name="password" required>
         <p></p>
         
         <input th:type="submit" th:value="로그인">
+        <a th:href="@{ /all/signUp( currPage=${param.currPage} ) }">회원가입</a>
     </form>
 </body>
 

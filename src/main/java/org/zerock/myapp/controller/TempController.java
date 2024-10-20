@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @NoArgsConstructor
 
+// 테스트용 컨트롤러
 @Controller("tempController")
 public class TempController {
 	

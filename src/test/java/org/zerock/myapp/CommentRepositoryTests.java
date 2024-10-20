@@ -13,6 +13,10 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.zerock.myapp.entity.Board;
 import org.zerock.myapp.entity.Comment;
@@ -203,4 +207,25 @@ public class CommentRepositoryTests {
 		
 	} // commentsAdd
 
+	
+	@Test
+	@Order(2)
+	@Transactional
+	@Rollback(false)
+	void commentsCheck() {
+		log.trace("commentsCheck() invoked.");
+		
+		Optional<Board> foundBoard = this.boradRepo.findById(1L);
+		foundBoard.ifPresent(p -> {
+			Pageable paging = PageRequest.of(0, 8, Sort.Direction.ASC, "level1", "level2");
+			
+			Page<Comment> foundComments = this.commentRepo.findByBoard(p, paging);
+			
+			for(Comment comment : foundComments) {
+				log.info(comment.getContent());
+			} // enhanced for
+			
+		});
+		
+	} // commentsCheck
 } // end class

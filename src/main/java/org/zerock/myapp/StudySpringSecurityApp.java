@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
-//@Log4j2
 @Slf4j
 
 @NoArgsConstructor
@@ -27,10 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 @EnableJpaRepositories
 @ConfigurationPropertiesScan
 
-// Spring Security를 위해서 반드시 붙여야 하는 어노테이션으로
-// 아무 클래스에나 붙일 수 있는게 아니라, "자바설정클래스"에만 붙일 수 있습니다.
-// 즉, @Configuration 또는 @SpringBootConfiguration 어노테이션이 붙어 있는
-// 클래스에만 붙일 수 있습니다. 대신, 한번만 붙이면 됩니다.
+// Spring Security 를 위해서 반드시 붙여야 하는 어노테이션. 한번만 붙이면 됩니다.
+// "자바설정클래스" @Configuration 또는 @SpringBootConfiguration 어노테이션이 붙어 있는 클래스에만 붙일 수 있습니다. 
 @EnableWebSecurity(debug = true)
 
 @ServletComponentScan
@@ -39,10 +36,11 @@ public class StudySpringSecurityApp extends ServletInitializer {
 
 	
 	public static void main(String[] args) {
-//		SpringApplication.run(StudySpringSecurityApp.class, args);	// 1st. method: 자동생성코드
+		// 1st. method: 자동생성코드
+//		SpringApplication.run(StudySpringSecurityApp.class, args);	
 		
 		// -------
-		
+		// 2nd. method: 수동설정
 		SpringApplication app = new SpringApplication(StudySpringSecurityApp.class);		
 		app.setWebApplicationType(WebApplicationType.SERVLET);
 		app.setBannerMode(Mode.CONSOLE);
@@ -52,5 +50,4 @@ public class StudySpringSecurityApp extends ServletInitializer {
 		log.trace("main({}) invoked.", Arrays.toString(args));
 	} // main
 
-	// git test2
 } // end class

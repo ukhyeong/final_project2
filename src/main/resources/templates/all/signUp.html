@@ -4,13 +4,46 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>signUp.html</title>
+	<title>회원가입</title>
+	
+	<script>
+    function encodeFormData() {
+        const usernameInput = document.querySelector('input[name="username"]');
+        const passwordInput = document.querySelector('input[name="password"]');
+        const roleInput = document.querySelector('input[name="role"]');
+        
+        // UTF-8 인코딩
+        usernameInput.value = encodeURIComponent(usernameInput.value);
+        passwordInput.value = encodeURIComponent(passwordInput.value);
+        roleInput.value = encodeURIComponent(roleInput.value);
+        
+        return true; // 폼을 정상적으로 제출하기 위해 true를 반환
+    }
+	</script>
+	
 </head>
 
 <body>
-	<h3>/templates/all/signUp.html</h3>
+	<h3>/all/signUp.html</h3>
 	<hr>
+	<h3>회원가입</h3>
 	
+	<form th:action="@{ /all/joinBoy }" th:method="POST" onsubmit="return encodeFormData()" accept-charset="UTF-8">
+        ID: <input th:type="text" th:name="username" required> <br>
+        PW: <input th:type="password" th:name="password" required> <br>
+        
+        ROLE: 
+        <input type="radio" th:name="role" value="PROFESSOR">
+        <label for="professor">PROFESSOR</label>
+    
+        <input type="radio" th:name="role" value="STUDENT">
+        <label for="student">STUDENT</label>
+        
+        <p></p>
+        
+        <input th:type="submit" th:value="작성완료">
+    </form>
+    
 </body>
 
 </html>

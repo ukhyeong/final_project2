@@ -82,7 +82,7 @@ public class LectureServiceImpl extends CommonBeanCallbacks implements LectureSe
 		// 교수 번호로 개설 강좌(Lecture)를 알아내자
 		Pageable paging = setSort(dto, Sort.Direction.ASC, "lectureName");
 		
-		return this.lectureRepo.findByprofessorNumber(professorNumber, paging);
+		return this.lectureRepo.findByProfessorNumber(professorNumber, paging);
 	} // findAllMyLecture
 	
 	

@@ -10,54 +10,57 @@
 	
 	<div>
 		<h3>상세조회</h3>
-	
-		<form th:action="@{ updateBoard }" th:method="POST">		
+		
+		<form th:action="@{ /professor/updateBoardView }" th:method="Post" onsubmit="return encodeFormData()" accept-charset="UTF-8">
+			<!-- param.currPage : URL의 쿼리 파라미터에서 currPage라는 값이 넘어올 경우 이를 입력 필드에 설정 -->
 			<input th:type="hidden" th:name="currPage" th:value="${param.currPage}">
 			
 			<table th:border="1">
+			
 				<tr>
 					<th>글번호</th>
-					<td><input th:type="text" th:name="id" th:value="${_BOARD_.id}" readonly></td>
+					<td><input type="text" th:name="id" th:value="${_BOARD_.id}" readonly></td>
 				</tr>
-
+	
 				<tr>
 					<th>최초등록일시</th>
 					<td>[[ ${#dates.format(_BOARD_.createDate, "yyyy/MM/dd HH:mm:ss")} ]]</td>
 				</tr>
-
+	
 				<tr>
 					<th>최종수정일시</th>
 					<td>[[ ${#dates.format(_BOARD_.updateDate, "yyyy/MM/dd HH:mm:ss")} ]]</td>
 				</tr>
-
+	
 				<tr>
 					<th>제목</th>
-					<td><input th:type="text" th:name="title" th:value="${_BOARD_.title}" ></td>
+					<td><input type="text" th:name="title" th:value="${_BOARD_.title}" readonly></td>
+					
 				</tr>
 				
 				<tr>
 					<th>작성자</th>
-					<td><input th:type="text" th:name="writer" th:value="${_BOARD_.writer}"></td>
+					<td><input type="text" th:name="writer" th:value="${_BOARD_.professor.name}" readonly></td>
 				</tr>
 				
 				<tr>
 					<th>내용</th>
-					<td><textarea th:name="content" th:rows="15" th:cols="80">[[ ${_BOARD_.content} ]]</textarea></td>
+					<td><textarea th:name="content" th:rows="15" th:cols="80" th:text="${_BOARD_.content}" readonly></textarea></td>
 				</tr>
-
+	
 				<tr>
-					<th>조횟수</th>
-					<td><input th:type="text" th:name="cnt" th:value="${_BOARD_.cnt}" readonly></td>
+					<th>조회수</th>
+					<td><input type="text" th:name="cnt" th:value="${_BOARD_.cnt}" readonly></td>
 				</tr>
 				
 				<tr>
 					<td th:colspan="2">
-						<input th:type="submit" th:value="수정하기">
-						
-						<a th:href="@{ deleteBoard( id=${_BOARD_.id}, currPage=${param.currPage} ) }">삭제하기</a>
-						<a th:href="@{ getBoardList( currPage=${param.currPage} ) }">목록으로가기</a>
+						<input th:type="submit" th:if="${_BOARD_.professor.number}==${_USER_NUMBER_}" th:value="수정하기">
+						<a th:if="${_BOARD_.professor.number}==${_USER_NUMBER_}" th:href="@{ /professor/deleteBoard( id=${_BOARD_.id}, currPage=${param.currPage} ) }">삭제하기</a>
+						<a th:href="@{ /auth/getBoardList( currPage=${param.currPage} ) }">목록으로가기</a>
 					</td>
 				</tr>
+				
 			</table>
 		</form>
 	</div>

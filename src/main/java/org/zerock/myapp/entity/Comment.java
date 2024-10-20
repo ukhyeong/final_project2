@@ -1,5 +1,6 @@
 package org.zerock.myapp.entity;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.zerock.myapp.common.CommonEntityLifecyleListener;
 
 import jakarta.persistence.Basic	;
@@ -23,7 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 
 @EntityListeners({ 
-	CommonEntityLifecyleListener.class
+	CommonEntityLifecyleListener.class,
+	AuditingEntityListener.class 
 })
 
 @Entity
@@ -35,6 +37,7 @@ public class Comment extends JpaAudit {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "comment_id")
 	private Long id;
+	
 	
 	// 2. 일반 속성
 	@Basic(optional = false)
@@ -48,6 +51,7 @@ public class Comment extends JpaAudit {
 	
 	@Basic(optional = false)
 	private Integer level2;
+	
 	
 	// 3. fk 속성
 	@ManyToOne(targetEntity = Board.class)

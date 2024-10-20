@@ -11,11 +11,12 @@ import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
 
-//@Log4j2
 @Slf4j
 
 @NoArgsConstructor
 
+// 전역 예외 처리 클래스
+// 이를 통해 오류가 발생했을 때 클라이언트는 예외에 대한 정보와 함께 HTTP 응답을 받게 됩니다.
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	

@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
-//@Log4j2
 @Slf4j
 
+// 전, 후처리 콜백함수 사용을 위한 클래스
 @NoArgsConstructor
 public abstract class CommonBeanCallbacks
 	implements InitializingBean, DisposableBean, BeanNameAware {

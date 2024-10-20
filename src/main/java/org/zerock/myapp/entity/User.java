@@ -3,6 +3,7 @@ package org.zerock.myapp.entity;
 import java.io.Serial;
 import java.io.Serializable;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.zerock.myapp.common.CommonEntityLifecyleListener;
 
 import jakarta.persistence.Basic;
@@ -21,7 +22,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 @Data
 
-@EntityListeners(CommonEntityLifecyleListener.class)
+@EntityListeners({ 
+	CommonEntityLifecyleListener.class,
+	AuditingEntityListener.class 
+})
 @Entity
 @Table(name="UZER")
 public class User extends JpaAudit implements Serializable { 

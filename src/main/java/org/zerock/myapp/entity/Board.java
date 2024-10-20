@@ -36,8 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 	
 	// 스프링부트의 실행클래스에 붙여놓은, @EnableJpaAuditing 어노테이션대로
 	// 각 엔티티 클래스의 @CreateDate, @LastModifiedDate 어노테이션이, 
-	// 감사자료(최초등록일시, 최종수정일시)를 자동생성하려면,
-	// 아래의 리스터 타입정보를 추가로 제공해야 합니다.
+	// 감사자료(최초등록일시, 최종수정일시)를 자동생성하려면, 아래의 리스너 타입정보를 추가로 제공해야 합니다.
 	AuditingEntityListener.class 
 })
 
@@ -64,10 +63,11 @@ public class Board extends JpaAudit implements Serializable {
 	
 	
 	// 4. 연관관계 매핑
-	// before
+	// (1) before, common property
 //	@Basic(optional = false)
 //	private String writer;
-	// after, FK
+	
+	// (2) after, FK
 	@ManyToOne(targetEntity = Professor.class)
     @JoinColumn(name = "professor_number", referencedColumnName = "professor_number", nullable = false)
     private Professor professor;

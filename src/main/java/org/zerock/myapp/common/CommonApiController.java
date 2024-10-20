@@ -15,13 +15,11 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
-//@Log4j2
 @Slf4j
-
 @NoArgsConstructor
 
+// 테스트용 컨트롤러
 @RequestMapping("/api/")
-
 @RestController
 public class CommonApiController {
 	@Autowired RequestMappingHandlerMapping handlerMapping;

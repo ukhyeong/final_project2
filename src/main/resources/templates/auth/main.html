@@ -8,11 +8,13 @@
 </head>
 
 <body>
-	<h3>/templates/auth/main.html</h3>
+	<h3>/auth/main.html</h3>
 	<hr>
+	<h3>메인</h3>
 	
-	<a th:href="@{getBoardList}">공지사항</a>
-			
+	<a th:href="@{/auth/getBoardList?currPage=1}">공지사항</a>
+	<a th:href="@{/auth/myPage}">마이페이지</a>
+	<a th:href="@{/logout}">로그아웃</a>
 </body>
 
 </html>

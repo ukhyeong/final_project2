@@ -24,18 +24,13 @@
 <body>
 	<h3>/auth/getBoardList.html</h3>
 	<hr>
+	<h3>공지사항</h3>
 	
 	<div>
-		<h3>목록조회 (
-				등록: [[ ${_IS_REGISTERED_} ]], 
-				수정: [[ ${_IS_MODIFIED_} ]], 
-				삭제: [[ ${_IS_REMOVED_} ]]
-			)
-		</h3>
-		
-		<a th:href="@{registerBoard(currPage=${_PAGINATION_.currPage})}">신규등록</a>
-		
-		<table th:border="1">
+		<a th:href="@{/auth/main}">메인화면</a>
+		<a th:href="@{/professor/registerBoardView(currPage=${_PAGINATION_.currPage})}">공지등록</a>
+
+		<table th:border=1>
 			<tr>
 				<th>ID</th>
 				<th>TITLE</th>
@@ -45,19 +40,19 @@
 				<th>UPDATEDATE</th>
 			</tr>
 			
-			<tr th:each="board, stat : ${_CURRENT_PAGE_}">
+			<tr th:each="board, stat : ${_FOUND_PAGE_}">
 				<td>[[ ${board.id} ]]</td>
 				
 				<td>
-					<a th:href="@{getBoard( currPage=${_PAGINATION_.currPage}, id=${board.id} )}">
+					<a th:href="@{/auth/getBoard( currPage=${_PAGINATION_.currPage}, id=${board.id} )}">
 						[[ ${board.title} ]]
 					</a>
 				</td>
 				
-				<td>[[ ${board.writer} ]]</td>
+				<td>[[ ${board.professor.name} ]]</td>
 				<td>[[ ${board.cnt} ]]</td>
 
-				<td>[[ ${#dates.format(board.createDate, "yyyy/MM/dd")} ]]</td>
+				<td>[[ ${#dates.format(board.createDate, "yyyy/MM/dd HH:mm:ss")} ]]</td>
 				<td>[[ ${#dates.format(board.updateDate, "yyyy/MM/dd HH:mm:ss")} ]]</td>
 			</tr>
 		</table>

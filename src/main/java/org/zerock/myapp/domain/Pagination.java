@@ -9,7 +9,7 @@ import lombok.Data;
 public class Pagination {
 	private int currPage = 1;
 	private int pageSize = 10;
-	private int pagesPerPage = 7;
+	private int pagesPerPage = 10;
 	
 	private long totalElements;			// 총 레코드 건수
 	private int totalPages;					// 총 페이지 수

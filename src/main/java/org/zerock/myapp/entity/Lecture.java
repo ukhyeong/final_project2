@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.zerock.myapp.common.CommonEntityLifecyleListener;
 
 import jakarta.persistence.Basic;
@@ -27,7 +28,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Data
 
-@EntityListeners(CommonEntityLifecyleListener.class)
+@EntityListeners({ 
+	CommonEntityLifecyleListener.class,
+	AuditingEntityListener.class 
+})
 @Entity
 @Table(name="lecture")
 // IdClass: 복합키를 사용하기 위한 어노테이션
